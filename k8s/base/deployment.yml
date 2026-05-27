@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedemo
+  labels:
+    app: kubedemo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubedemo
+  template:
+    metadata:
+      labels:
+        app: kubedemo
+    spec:
+      containers:
+        - name: kubedemo
+          image: rahulmallu/kubedemo:1.0
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - mountPath: /config
+              name: config-volume
+              readOnly: true
+          env:
+            - name: SPRING_CONFIG_ADDITIONAL_LOCATION
+              value: "file:/config/"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: kubedemo-config

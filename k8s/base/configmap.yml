@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubedemo-config
+  labels:
+    app: kubedemo
+data:
+  application.yml: |
+    echo: 
+      prefix: "[CHANGED]"
+      suffix: "[end-of-configmap]"
+      maxLength: 5
+      enabled: true
